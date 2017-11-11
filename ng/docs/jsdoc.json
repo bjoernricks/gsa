@@ -1,0 +1,8 @@
+{
+    "source": {
+        "include": [
+            "../src/gmp",
+            "../src/gmp/models"
+        ]
+    }
+}
