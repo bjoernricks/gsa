@@ -838,17 +838,17 @@ const TaskComponent = props => {
                 onCreated={handleTargetCreated}
                 onInteraction={onInteraction}
               >
-                {({create: createtarget}) => (
+                {({create: createTarget}) => (
                   <AlertComponent
                     onCreated={handleAlertCreated}
                     onInteraction={onInteraction}
                   >
-                    {({create: createalert}) => (
+                    {({create: createAlert}) => (
                       <ScheduleComponent
                         onCreated={handleScheduleCreated}
                         onInteraction={onInteraction}
                       >
-                        {({create: createschedule}) => (
+                        {({create: createSchedule}) => (
                           <TaskDialog
                             alerts={alerts}
                             alert_ids={alert_ids}
@@ -887,9 +887,9 @@ const TaskComponent = props => {
                             title={title}
                             onAlertsChange={handleAlertsChange}
                             onErrorClose={handleTaskDialogErrorClose}
-                            onNewAlertClick={createalert}
-                            onNewTargetClick={createtarget}
-                            onNewScheduleClick={createschedule}
+                            onNewAlertClick={createAlert}
+                            onNewTargetClick={createTarget}
+                            onNewScheduleClick={createSchedule}
                             onScanConfigChange={handleScanConfigChange}
                             onScannerChange={handleScannerChange}
                             onScheduleChange={handleScheduleChange}
