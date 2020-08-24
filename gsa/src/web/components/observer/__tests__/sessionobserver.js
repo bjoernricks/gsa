@@ -115,18 +115,21 @@ describe('SessionObserver tests', () => {
     expect(clearTimeoutMock).toHaveBeenCalled();
   });
 
-  test('should logout if user is not authenticated anymore', () => {
+  test.only('should logout if user is not authenticated anymore', () => {
+    const queryResult = {
+      data: {
+        currentUser: {
+          isAuthenticated: false,
+        },
+      },
+    };
+
+    const resultFunc = jest.fn().mockReturnValue(queryResult);
     const mock = {
       request: {
         query: GET_CURRENT_USER_IS_AUTHENTICATED,
       },
-      result: {
-        data: {
-          currentUser: {
-            isAuthenticated: false,
-          },
-        },
-      },
+      newData: resultFunc,
     };
 
     const logout = jest.fn();
@@ -148,10 +151,18 @@ describe('SessionObserver tests', () => {
     expect(element).toBeNull();
 
     act(() => {
+      console.log('run all timers');
       jest.runAllTimers();
     });
 
     expect(setTimeoutMock).toHaveBeenCalled();
+
+    act(() => {
+      jest.runAllTicks();
+    });
+
+    expect(resultFunc).toHaveBeenCalled();
+
     expect(logout).toHaveBeenCalled();
     expect(clearTimeoutMock).not.toHaveBeenCalled();
   });

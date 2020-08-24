@@ -198,13 +198,12 @@ describe('useLazyGetTargets tests', () => {
     const button = screen.getByTestId('load');
     fireEvent.click(button);
 
-    expect(screen.getByTestId('loading')).toHaveTextContent('Loading');
-
-    await wait();
+    const loading = await screen.findByTestId('loading');
+    expect(loading).toHaveTextContent('Loading');
 
     expect(resultFunc).toHaveBeenCalled();
 
-    targetElements = screen.getAllByTestId('target');
+    targetElements = await screen.findAllByTestId('target');
     expect(targetElements).toHaveLength(2);
 
     expect(targetElements[0]).toHaveTextContent('target 1');

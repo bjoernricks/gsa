@@ -52,6 +52,7 @@ const SessionTimeout = ({sessionTimeout}) => {
   const [getIsAuthenticated, {isAuthenticated}] = useLazyIsAuthenticated();
 
   const handleTimer = useCallback(() => {
+    console.log('handle timer');
     log.debug(
       'session timer',
       timerRef.current,
@@ -65,6 +66,8 @@ const SessionTimeout = ({sessionTimeout}) => {
 
   const startTimer = useCallback(() => {
     const timeout = sessionTimeout.diff(moment()) + DELAY;
+
+    console.log('starting timer', timeout);
 
     if (timeout > 0) {
       timerRef.current = setTimeoutFunc(handleTimer, timeout);
@@ -80,6 +83,7 @@ const SessionTimeout = ({sessionTimeout}) => {
   }, [sessionTimeout, handleTimer]);
 
   useEffect(() => {
+    console.log('running effect');
     // will be called on mount and if sessionTimeout changes
     startTimer();
     return () => {
@@ -93,6 +97,7 @@ const SessionTimeout = ({sessionTimeout}) => {
   }, [sessionTimeout, startTimer]);
 
   useEffect(() => {
+    console.log('isAuth effect', isAuthenticated);
     if (hasValue(isAuthenticated) && !isAuthenticated) {
       log.debug('Session has ended.');
 
